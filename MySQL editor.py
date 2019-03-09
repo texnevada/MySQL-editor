@@ -3,6 +3,7 @@
 Program name: Tap06
 Author: Christer G. Sorensen
 Created: 06.03.19 - Europe
+Made for: Python 3.6
 """
 
 #python -m pip install mysql-connector
@@ -98,10 +99,30 @@ if n == 1:
                 print("Error: No database or table selected\nPlease select a table & database\n")
         #Insert to table
         elif i == "6":
-            edittable = input()
-        #edit table
+            if selecttable != "none":
+                clear()
+                print(f"Inserting into\nDatabase: {selectdb}\nTable: {selecttable}\n")
+                print("Insert table columns and seperate with comma\nExample: games, year, time")
+                inserttable = input("Column: ")
+                print("Insert values in the order of the columns. Seperate with comma\nExample: Chess, 1942, 15:00")
+                inserttablev = input("Value: ")
+                try:
+                    sql.execute(f"INSERT INTO {selecttable} ({inserttable}) VALUES ({inserttablev})")
+                    print(f"{sql.rowcount} record inserted\n")
+                except:
+                    print("Unable to insert data\n")
+            else:
+                print("You need to select a database!\n")
+        #Delete table
         elif i == "7":
-            deletetable = input()
+            if selecttable != "none"
+                print(f"Are you sure you want to delete {selecttable}?")
+                print("Default input: N unless specified")
+                deletetable = input("[y/n]: ")
+                if deletetable == "y" or "yes" or "Y" or "Yes":
+                    sql.execute(f"DROP TABLE {selecttable}")
+            else:
+                print("You must select a table!")
         #exit program
         elif i == "q" or "quit" or "Q" or "Quit":
             mydb.close()
